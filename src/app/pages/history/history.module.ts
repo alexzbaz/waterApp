@@ -1,18 +1,19 @@
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
+import { HistoryPage } from './history.page';
 
-import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { HistoryPageRoutingModule } from './history-routing.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    Tab1PageRoutingModule
+    HistoryPageRoutingModule
   ],
-  declarations: [Tab1Page]
+  declarations: [HistoryPage]
 })
-export class Tab1PageModule {}
+export class HistoryPageModule {}

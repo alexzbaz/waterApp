@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-back-button slot="start"></ion-back-button>
+        <ion-title>
+            Settings
+        </ion-title>
+        <ion-button slot="end" fill="clear" (click)="saveSettings()">
+            SAVE
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-item>
+        <ion-label position="stacked">
+            How much water do you want to drink daily?
+        </ion-label>
+        <ion-input [placeholder]="'in litres'">
+
+        </ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="stacked">
+            How old are you?
+        </ion-label>
+        <ion-input [placeholder]="'in years'">
+
+        </ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="stacked">
+            How tall are you?
+        </ion-label>
+        <ion-input [placeholder]="'in cm'">
+
+        </ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label position="stacked">
+            How active are you?
+        </ion-label>
+        <ion-range min="1" max="5" pin="true" snaps="true">
+
+        </ion-range>
+    </ion-item>
+
+</ion-content>
