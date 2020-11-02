@@ -9,4 +9,8 @@ export class SettingsPage {
 
   constructor() {}
 
+  saveSettings() {
+
+  }
+
 }

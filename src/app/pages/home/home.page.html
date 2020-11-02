@@ -1,40 +1,74 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Water
-    </ion-title>
-    <ion-button slot="end" fill="clear" (click)="settingsService.navigateToSettings()">
-      <ion-icon name="settings"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Water
+        </ion-title>
+        <ion-button slot="end" fill="clear" (click)="settingsService.navigateToSettings()">
+            <ion-icon name="settings"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <ion-progress-bar class="progress-bar" value="0.25"></ion-progress-bar>
+    <ion-progress-bar class="progress-bar" [value]="progressbarValue"></ion-progress-bar>
+    <div style="text-align: center">
+        <p>You reached <strong>{{progressbarValueInPercent}} %</strong> of your daily goal!</p>
+    </div>
 
-  <ion-button fill="clear">
-    <ion-icon name="water"></ion-icon>
-  </ion-button>
+    <ion-grid class="ion-padding">
+        <ion-row>
+            <ion-col>
+                <ion-button fill="clear">
+                    <ion-icon name="water"></ion-icon>
+                    <ion-badge>{{waterAdder[0]}} ml</ion-badge>
+                </ion-button>
+            </ion-col>
 
-  <ion-button fill="clear">
-    <ion-icon name="water"></ion-icon>
-  </ion-button>
+            <ion-col>
+                <ion-button fill="clear">
+                    <ion-icon name="water"></ion-icon>
+                    <ion-badge>{{waterAdder[1]}} ml</ion-badge>
+                </ion-button>
+            </ion-col>
 
-  <ion-button fill="clear">
-    <ion-icon name="water"></ion-icon>
-  </ion-button>
+            <ion-col>
+                <ion-button fill="clear">
+                    <ion-icon name="water"></ion-icon>
+                    <ion-badge>{{waterAdder[2]}} ml</ion-badge>
+                </ion-button>
+            </ion-col>
+        </ion-row>
 
-  <ion-button fill="clear">
-    <ion-icon name="water"></ion-icon>
-  </ion-button>
+        <ion-row>
+            <ion-col>
+                <ion-button fill="clear">
+                    <ion-icon name="water"></ion-icon>
+                    <ion-badge>{{waterAdder[3]}} ml</ion-badge>
+                </ion-button>
+            </ion-col>
 
-  <ion-button fill="clear">
-    <ion-icon name="water"></ion-icon>
-  </ion-button>
+            <ion-col>
+                <ion-button fill="clear">
+                    <ion-icon name="water"></ion-icon>
+                    <ion-badge>{{waterAdder[4]}} ml</ion-badge>
+                </ion-button>
+            </ion-col>
 
-  <ion-button fill="clear">
-    <ion-icon name="water"></ion-icon>
-  </ion-button>
+            <ion-col>
+                <ion-button fill="clear">
+                    <ion-icon name="water"></ion-icon>
+                    <ion-badge>{{waterAdder[5]}} ml</ion-badge>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
+    <ion-fab>
+        <ion-fab-button size="small">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
 </ion-content>

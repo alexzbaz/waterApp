@@ -2,3 +2,27 @@
   height: 10%;
   color: royalblue;
 }
+
+ion-col {
+  text-align: center;
+}
+
+ion-col ion-icon {
+  font-size: 200%;
+}
+
+ion-badge {
+  bottom: 0;
+  position: absolute;
+}
+
+ion-col ion-button {
+  height: 100px; //TODO: hard-coded style
+}
+
+ion-fab {
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  bottom: 10%;
+}
