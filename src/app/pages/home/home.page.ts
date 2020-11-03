@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {SettingsService} from "../../service/settings.service";
+import {WaterMeasureService} from "../../service/water-measure.service";
+import {IonSlides} from "@ionic/angular";
 
 @Component({
   selector: 'app-home',
@@ -7,20 +9,27 @@ import {SettingsService} from "../../service/settings.service";
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
-  progressbarValue = 0.25;
-  progressbarValueInPercent: number;
+  @ViewChild('slides') slides: IonSlides;
+  slideOptions = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay: true,
+    speed: 750,
+
+  }
   waterAdder = [100, 200, 500, 700, 1000, 1500];
 
-  constructor(public settingsService: SettingsService) {
-    this.getValueInPercent();
+  constructor(public settingsService: SettingsService,
+              public waterMeasureService: WaterMeasureService) {
+    this.waterMeasureService.getValueForProgBar();
   }
 
-  getValueInPercent() {
-    this.progressbarValueInPercent = this.progressbarValue * 100;
+  ionSlidesDidLoad() {
+    this.slides.startAutoplay();
   }
 
-  progressbarAbsolute() {
-
+  addWater(ml) {
+    this.waterMeasureService.addToProgressbar(ml)
   }
 
 }
