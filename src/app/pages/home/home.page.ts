@@ -15,7 +15,6 @@ export class HomePage {
     slidesPerView: 1,
     autoplay: true,
     speed: 750,
-
   }
   waterAdder = [100, 200, 500, 700, 1000, 1500];
 
@@ -24,12 +23,13 @@ export class HomePage {
     this.waterMeasureService.getValueForProgBar();
   }
 
-  ionSlidesDidLoad() {
-    this.slides.startAutoplay();
-  }
-
   addWater(ml) {
     this.waterMeasureService.addToProgressbar(ml)
+  }
+
+  // When revisiting the page, the slides have to be started "manually"
+  ionSlidesDidLoad(slides: IonSlides) {
+    slides.startAutoplay();
   }
 
 }

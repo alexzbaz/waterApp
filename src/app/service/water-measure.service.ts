@@ -11,6 +11,14 @@ export class WaterMeasureService {
 
   constructor() { }
 
+  getLitres() {
+    return this.litresPerDay;
+  }
+
+  setLitres(litres) {
+    this.litresPerDay = litres;
+  }
+
   addToProgressbar(addedWater) {
     this.litresDrank = this.litresDrank + addedWater;
     this.getValueForProgBar();
@@ -19,6 +27,7 @@ export class WaterMeasureService {
 
   getValueForProgBar() {
     this.progBarValue = this.litresDrank / this.litresPerDay;
+    return this.progBarValue;
   }
 
   getValueInPercent() {
