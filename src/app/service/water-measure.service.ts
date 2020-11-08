@@ -1,22 +1,21 @@
 import {Injectable} from '@angular/core';
+import {StorageService} from "./storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WaterMeasureService {
-  litresPerDay: number = 3000;
-  litresDrank: number = 0;
+  litresDrank
   progBarValue: number;
   progBarValueInPercent: number = 0;
+  litreKey
 
-  constructor() { }
-
-  getLitres() {
-    return this.litresPerDay;
+  constructor(public storage: StorageService) {
+    this.getValueLitresDrank();
   }
 
-  setLitres(litres) {
-    this.litresPerDay = litres;
+  async getValueLitresDrank() {
+    this.litresDrank = await this.storage.get(this.storage.getDate());
   }
 
   addToProgressbar(addedWater) {
@@ -25,8 +24,9 @@ export class WaterMeasureService {
     this.getValueInPercent();
   }
 
-  getValueForProgBar() {
-    this.progBarValue = this.litresDrank / this.litresPerDay;
+  async getValueForProgBar() {
+    let litreGoal = await this.storage.get('Litres');
+    this.progBarValue = this.litresDrank / litreGoal;
     return this.progBarValue;
   }
 

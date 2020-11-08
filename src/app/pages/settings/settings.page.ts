@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {WaterMeasureService} from "../../service/water-measure.service";
 import {Router} from "@angular/router";
+import {StorageService} from "../../service/storage.service";
 
 @Component({
   selector: 'app-settings',
@@ -12,8 +13,14 @@ export class SettingsPage {
   litres;
 
   constructor(public waterMeasureService: WaterMeasureService,
-              public router: Router) {
-    this.litres = waterMeasureService.getLitres();
+              public router: Router,
+              public storage: StorageService) {
+
+  }
+
+  ionViewDidEnter() {
+    this.litres = this.storage.getDailyGoal();
+    console.log(this.litres)
   }
 
   saveSettings() {
@@ -22,7 +29,7 @@ export class SettingsPage {
   }
 
   updateValues() {
-    this.waterMeasureService.setLitres(this.litres)
+    this.storage.set('Litres', this.litres);
     this.waterMeasureService.getValueForProgBar();
     this.waterMeasureService.getValueInPercent();
   }

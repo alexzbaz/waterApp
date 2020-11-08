@@ -4,9 +4,11 @@
         <ion-title>
             Settings
         </ion-title>
-        <ion-button type="submit" slot="end" fill="clear" (click)="saveSettings()">
-            SAVE
-        </ion-button>
+        <ion-buttons slot="end">
+            simple
+            <ion-toggle slot="end" style="font-size: small"></ion-toggle>
+        </ion-buttons>
+
     </ion-toolbar>
 </ion-header>
 
@@ -46,3 +48,7 @@
         </ion-item>
 
 </ion-content>
+
+<ion-footer>
+    <ion-button (click)="saveSettings()">SAVE</ion-button>
+</ion-footer>
