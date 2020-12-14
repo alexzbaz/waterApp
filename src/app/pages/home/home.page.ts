@@ -35,7 +35,7 @@ export class HomePage {
 
   addWater(ml) {
     this.waterMeasureService.addToProgressbar(ml);
-    this.storage.set(this.storage.getDate(), this.waterMeasureService.litresDrank);
+    this.storage.storeAmount(this.waterMeasureService.litresDrank);
   }
 
   // When revisiting the page, the slides have to be started "manually"
@@ -49,7 +49,7 @@ export class HomePage {
       welcomeModal.onDidDismiss().then(data => {
         console.log(data);
         let litres = data['data'];
-        this.storage.set('Litres', litres);
+        this.storage.setDailyGoal(litres);
       })
     return await welcomeModal.present();
     }

@@ -15,7 +15,7 @@ export class WaterMeasureService {
   }
 
   async getValueLitresDrank() {
-    this.litresDrank = await this.storage.get(this.storage.getDate());
+    this.litresDrank = await this.storage.loadAmountToday();
   }
 
   addToProgressbar(addedWater) {
@@ -25,8 +25,11 @@ export class WaterMeasureService {
   }
 
   async getValueForProgBar() {
-    let litreGoal = await this.storage.get('Litres');
-    this.progBarValue = this.litresDrank / litreGoal;
+    let litreGoal;
+    await this.storage.getDailyGoal()
+        .then(res => {
+          this.progBarValue = this.litresDrank / litreGoal;
+        });
     return this.progBarValue;
   }
 
