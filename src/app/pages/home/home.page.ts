@@ -17,7 +17,7 @@ export class HomePage {
     slidesPerView: 1,
     autoplay: true,
     speed: 750,
-  }
+  };
 
   waterAdder = [100, 200, 500, 700, 1000, 1500];
   firstView = true;
@@ -26,16 +26,16 @@ export class HomePage {
               public waterMeasureService: WaterMeasureService,
               public storage: StorageService,
               public modalCtrl: ModalController) {
-    this.showWelcomeModal();
+    // this.showWelcomeModal();
   }
 
   ionViewDidLoad() {
-    this.waterMeasureService.getValueForProgBar();
+    // this.waterMeasureService.getValueForProgBar();
   }
 
   addWater(ml) {
     this.waterMeasureService.addToProgressbar(ml);
-    this.storage.storeAmount(this.waterMeasureService.litresDrank);
+    this.storage.storeAmount(ml);
   }
 
   // When revisiting the page, the slides have to be started "manually"
@@ -50,8 +50,8 @@ export class HomePage {
         console.log(data);
         let litres = data['data'];
         this.storage.setDailyGoal(litres);
-      })
-    return await welcomeModal.present();
+      });
+      return await welcomeModal.present();
     }
   }
 

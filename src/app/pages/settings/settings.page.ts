@@ -20,18 +20,18 @@ export class SettingsPage {
 
   ionViewDidEnter() {
     this.litres = this.storage.getDailyGoal();
-    console.log(this.litres)
+    console.log(this.litres);
 
   }
 
   saveSettings() {
-    this.updateValues()
+    this.updateValues();
     this.router.navigateByUrl('/tabs/tab1');
   }
 
   async updateValues() {
     await this.storage.storeAmount(this.litres);
-    this.waterMeasureService.getValueForProgBar();
+    // this.waterMeasureService.getValueForProgBar();
     this.waterMeasureService.getValueInPercent();
   }
 

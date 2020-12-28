@@ -11,6 +11,7 @@ import {AppComponent} from './app.component';
 import {SQLite} from "@ionic-native/sqlite/ngx";
 import {WaterMeasureService} from "./service/water-measure.service";
 import {StorageService} from "./service/storage.service";
+import {DatePipe} from '@angular/common';
 
 @NgModule({
     declarations: [AppComponent],
@@ -22,7 +23,8 @@ import {StorageService} from "./service/storage.service";
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         WaterMeasureService,
         StorageService,
-        SQLite
+        SQLite,
+        DatePipe
     ],
     bootstrap: [AppComponent]
 })

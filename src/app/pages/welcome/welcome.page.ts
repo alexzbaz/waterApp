@@ -9,7 +9,7 @@ import {ModalController} from "@ionic/angular";
   styleUrls: ['./welcome.page.scss'],
 })
 export class WelcomePage implements OnInit {
-  litres: number;
+  millilitres: number;
   constructor(public storage: StorageService,
               public router: Router,
               public modalCtrl: ModalController) { }
@@ -18,7 +18,8 @@ export class WelcomePage implements OnInit {
   }
 
   setLitres() {
-    this.modalCtrl.dismiss(this.litres);
+    this.storage.setDailyGoal(this.millilitres);
+    this.modalCtrl.dismiss(this.millilitres);
   }
 
 }
