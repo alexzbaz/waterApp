@@ -29,8 +29,9 @@ export class HomePage {
     // this.showWelcomeModal();
   }
 
-  ionViewDidLoad() {
-    // this.waterMeasureService.getValueForProgBar();
+  ionViewWillEnter() {
+    this.waterMeasureService.getValueForProgBar();
+    this.waterMeasureService.getValueForProgbarInPercent();
   }
 
   addWater(ml) {

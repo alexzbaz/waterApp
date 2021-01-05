@@ -1,40 +1,52 @@
 import {Injectable} from '@angular/core';
-import {StorageService} from "./storage.service";
+import {StorageService} from './storage.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class WaterMeasureService {
-  litresDrank;
-  progBarValue: number;
-  progBarValueInPercent = 0;
-  litreKey;
+    drankToday = 0;
+    goalInMl: number;
+    progBarValue: number;
+    progBarValueInPercent = 0;
+    litreKey;
 
-  constructor(public storage: StorageService) {
-    this.getValueLitresDrank();
-  }
+    constructor(public storage: StorageService) {
+        // this.getValueLitresDrank();
+    }
 
-  async getValueLitresDrank() {
-    this.litresDrank = await this.storage.loadAmountOfDay();
-  }
+    async getTodaysLitresDrank() {
+        await this.storage.loadAmountOfDay()
+            .then(res => {
+                if (res.rows.length > 0) {
+                    for (let i = 0; i < res.rows.length; i++) {
+                        this.drankToday = this.drankToday + res.rows.item(i).amount;
+                    }
+                }
+            });
+        console.log('LITRES DRANK', this.drankToday);
+    }
 
-  addToProgressbar(addedWater) {
-    this.litresDrank = this.litresDrank + addedWater;
-    // this.getValueForProgBar();
-    this.getValueInPercent();
-  }
+    addToProgressbar(addedWater) {
+        this.drankToday = this.drankToday + addedWater;
+        // this.getValueForProgBar();
+        this.getValueForProgbarInPercent();
+    }
 
-  async getValueForProgBar() {
-    /*let litreGoal;
-    await this.storage.getDailyGoal()
-        .then(res => {
-          this.progBarValue = this.litresDrank / litreGoal;
-        });
-    return this.progBarValue;*/
-  }
+    // First get today's amount of water, then get daily goal
+    async getValueForProgBar() {
+        await this.getTodaysLitresDrank();
+        await this.storage.getDailyGoal()
+            .then(res => {
+                this.goalInMl = res.rows.item(0).amount;
+            });
 
-  getValueInPercent() {
-    this.progBarValueInPercent = Math.round(this.progBarValue * 100);
-  }
+        this.progBarValue = this.drankToday / this.goalInMl;
+        return this.progBarValue;
+    }
+
+    getValueForProgbarInPercent() {
+        this.progBarValueInPercent = Math.round(this.progBarValue * 100);
+    }
 
 }

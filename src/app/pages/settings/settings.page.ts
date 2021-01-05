@@ -32,7 +32,7 @@ export class SettingsPage {
   async updateValues() {
     await this.storage.storeAmount(this.litres);
     // this.waterMeasureService.getValueForProgBar();
-    this.waterMeasureService.getValueInPercent();
+    this.waterMeasureService.getValueForProgbarInPercent();
   }
 
 }
