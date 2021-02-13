@@ -29,7 +29,7 @@ export class DateService {
   }
 
   getDate() {
-    return this.datePipe.transform(new Date(), 'yyyy.MM.dd');
+    return this.datePipe.transform(new Date(), 'yyyyMMddHHmmss');
   }
 
   loadAmountWeekly() {

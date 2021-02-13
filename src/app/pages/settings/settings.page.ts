@@ -21,7 +21,6 @@ export class SettingsPage {
   ionViewDidEnter() {
     this.litres = this.storage.getDailyGoal();
     console.log(this.litres);
-
   }
 
   saveSettings() {

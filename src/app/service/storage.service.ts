@@ -6,7 +6,9 @@ import {DateService} from './date.service';
     providedIn: 'root'
 })
 export class StorageService {
-    storage;
+    storage: SQLiteObject;
+
+    dataLoaded = false; // Variable to show, if data has been loaded from database
 
     constructor(private sqlite: SQLite,
                 private date: DateService) {
@@ -14,7 +16,7 @@ export class StorageService {
 
     createDB() {
         this.sqlite.create({
-            name: 'water',
+            name: 'water.db',
             location: 'default'
         }).then((db: SQLiteObject) => {
             this.storage = db;
@@ -22,11 +24,22 @@ export class StorageService {
         });
     }
 
-    createDbFormat() {
-        this.storage.executeSql('CREATE TABLE IF NOT EXISTS water_drank (id INTEGER PRIMARY KEY AUTOINCREMENT, amount, year, month, day, hour, minute)')
-            .then(res => console.log('Database \'Water Drank\' created'));
-        this.storage.executeSql('CREATE TABLE goal (amount, goal_set)')
-            .then(res => console.log('Database \'Goal\' created'));
+    async createDbFormat() {
+        await this.createWaterTable();
+        await this.createGoalTable();
+
+    }
+
+    createWaterTable() {
+        this.storage.executeSql('CREATE TABLE IF NOT EXISTS water_drank (id INTEGER PRIMARY KEY AUTOINCREMENT, amount INTEGER, year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER)', [])
+            .then(res => console.log('Database \'Water\' created'))
+            .catch((e) => console.log("Error in Water Table", JSON.stringify(e)));
+    }
+
+    createGoalTable() {
+        this.storage.executeSql('CREATE TABLE IF NOT EXISTS goal (amount INTEGER, goal_set INTEGER)', [])
+            .then(res => console.log('Database \'Goal\' created'))
+            .catch((e) => console.log("Error in Goal Table", JSON.stringify(e)));
     }
 
     // Amount comes in ml
@@ -62,11 +75,13 @@ export class StorageService {
             });
     }
 
-    async getDailyGoal() {
-        return this.storage.executeSql('SELECT amount FROM goal WHERE goal_set = ?', [this.date.getDate()])
-            .then(res => {
-                console.log('Daily goal Loaded', res);
-                return res;
+    getDailyGoal() {
+        return this.storage.executeSql('SELECT * FROM goal ORDER BY goal_set DESC LIMIT 1', [])
+            .then((res: any) => {
+                return res.rows.item(0).amount;
+            })
+            .catch((e) => {
+                console.log("Error in Get Daily Goal", JSON.stringify(e));
             });
     }
 

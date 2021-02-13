@@ -8,11 +8,9 @@ export class WaterMeasureService {
     drankToday = 0;
     goalInMl: number;
     progBarValue: number;
-    progBarValueInPercent = 0;
-    litreKey;
+    progBarValueInPercent: number;
 
     constructor(public storage: StorageService) {
-        // this.getValueLitresDrank();
     }
 
     async getTodaysLitresDrank() {
@@ -29,24 +27,26 @@ export class WaterMeasureService {
 
     addToProgressbar(addedWater) {
         this.drankToday = this.drankToday + addedWater;
-        // this.getValueForProgBar();
+        this.getValueForProgBar();
         this.getValueForProgbarInPercent();
     }
 
-    // First get today's amount of water, then get daily goal
-    async getValueForProgBar() {
-        await this.getTodaysLitresDrank();
-        await this.storage.getDailyGoal()
-            .then(res => {
-                this.goalInMl = res.rows.item(0).amount;
-            });
+    async getDailyGoal() {
+        console.log("getDailyGoal()");
+        this.goalInMl = await this.storage.getDailyGoal();
+    }
 
+    getValueForProgBar() {
         this.progBarValue = this.drankToday / this.goalInMl;
-        return this.progBarValue;
+        console.log(this.progBarValue);
     }
 
     getValueForProgbarInPercent() {
-        this.progBarValueInPercent = Math.round(this.progBarValue * 100);
+        if (this.goalInMl > 0) {
+            this.progBarValueInPercent = Math.round(this.progBarValue * 100);
+        } else {
+            this.progBarValueInPercent = 0;
+        }
     }
 
 }
