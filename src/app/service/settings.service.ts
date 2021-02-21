@@ -10,7 +10,7 @@ export class SettingsService {
   constructor(private router: Router) { }
 
   navigateToSettings() {
-    this.router.navigateByUrl('/settings')
+    this.router.navigateByUrl('/settings');
   }
 
   saveSettings() {

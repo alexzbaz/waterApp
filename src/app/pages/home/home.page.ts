@@ -3,7 +3,7 @@ import {SettingsService} from '../../service/settings.service';
 import {WaterMeasureService} from '../../service/water-measure.service';
 import {IonSlides, ModalController} from '@ionic/angular';
 import {StorageService} from '../../service/storage.service';
-import {WelcomePage} from '../welcome/welcome.page';
+import {SettingsPage} from '../settings/settings.page';
 
 @Component({
     selector: 'app-home',
@@ -26,7 +26,6 @@ export class HomePage {
                 public waterMeasureService: WaterMeasureService,
                 public storage: StorageService,
                 public modalCtrl: ModalController) {
-        this.showWelcomeModal();
     }
 
     async ionViewWillEnter() {
@@ -34,10 +33,16 @@ export class HomePage {
         await this.waterMeasureService.getDailyGoal();
         await this.waterMeasureService.getTodaysLitresDrank();
         this.storage.dataLoaded = true;
-
-        this.waterMeasureService.getValueForProgBar();
-        this.waterMeasureService.getValueForProgbarInPercent();
+        if (this.waterMeasureService.goalInMl === undefined || this.waterMeasureService.goalInMl === null) {
+            await this.showWelcomeModal();
+            console.log("show welcome modal");
+        } else {
+            this.waterMeasureService.getValueForProgBar();
+            this.waterMeasureService.getValueForProgbarInPercent();
+        }
     }
+
+
 
     addWater(ml) {
         this.waterMeasureService.addToProgressbar(ml);
@@ -51,7 +56,7 @@ export class HomePage {
 
     async showWelcomeModal() {
         if (this.firstView) {
-            let welcomeModal = await this.modalCtrl.create({component: WelcomePage});
+            let welcomeModal = await this.modalCtrl.create({component: SettingsPage});
             return await welcomeModal.present();
         }
     }

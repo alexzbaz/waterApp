@@ -6,7 +6,7 @@ import {StorageService} from './storage.service';
 })
 export class WaterMeasureService {
     drankToday = 0;
-    goalInMl: number;
+    goalInMl: number = null;
     progBarValue: number;
     progBarValueInPercent: number;
 
@@ -32,13 +32,12 @@ export class WaterMeasureService {
     }
 
     async getDailyGoal() {
-        console.log("getDailyGoal()");
         this.goalInMl = await this.storage.getDailyGoal();
     }
 
     getValueForProgBar() {
         this.progBarValue = this.drankToday / this.goalInMl;
-        console.log(this.progBarValue);
+        console.log("getValueForProgBar()");
     }
 
     getValueForProgbarInPercent() {

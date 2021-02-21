@@ -22,11 +22,20 @@
             </ion-input>
         </ion-item>
 
+    <ion-item lines="none">
+        <ion-label position="stacked">
+            How many items would you like to choose from?
+        </ion-label>
+        <ion-input [(ngModel)]="numberOfButtons">
+
+        </ion-input>
+    </ion-item>
+
         <ion-item lines="none">
             <ion-label position="stacked">
                 How old are you?
             </ion-label>
-            <ion-input [placeholder]="'in years'">
+            <ion-input [placeholder]="'in years'" type="number">
 
             </ion-input>
         </ion-item>
@@ -35,7 +44,7 @@
             <ion-label position="stacked">
                 How tall are you?
             </ion-label>
-            <ion-input [placeholder]="'in cm'">
+            <ion-input [placeholder]="'in cm'" type="number">
 
             </ion-input>
         </ion-item>
@@ -46,6 +55,12 @@
             </ion-label>
             <ion-range min="1" max="5" pin="true" snaps="true"></ion-range>
         </ion-item>
+
+    <ion-item lines="none">
+        <ion-label position="stacked">
+            Colouring
+        </ion-label>
+    </ion-item>
 
 </ion-content>
 
