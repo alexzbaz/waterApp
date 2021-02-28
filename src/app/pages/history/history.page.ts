@@ -11,11 +11,25 @@ export class HistoryPage {
   databaseEntries = [];
 
   constructor(public settingsService: SettingsService,
-              private storage: StorageService) {}
+              private storage: StorageService) {
+    this.loadDatabaseEntries();
+  }
 
   async loadDatabaseEntries() {
-    this.databaseEntries = await this.storage.loadAmountOfDay();
-    console.log(this.databaseEntries);
+    await this.storage.loadAmountOfDay().then((res) => {
+      console.log("item", res.rows.item);
+      console.log("res.rows", res.rows);
+      console.log("length", res.rows.length);
+      for (let item in res.rows) {
+        if (res.rows.length > 0) {
+          for (let i = 0; i < res.rows.length; i++) {
+            this.databaseEntries.push(res.rows.item(i));
+            console.log("DATABASE ENTRIES", this.databaseEntries);
+          }
+        }
+      }
+    });
+
   }
 
 }

@@ -10,6 +10,10 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-Hier soll dann der "Datenbank"-Zugriff stattfinden, d.h. hier wird angezeigt wie viel getrunken wurde für einen
-  vom User ausgewählten Zeitraum. Außerdem sollen verschiedene Visualisierungen der Daten angeboten werden.
+  <ion-item *ngFor="let entry of this.databaseEntries">
+  <div>{{entry.amount}} ml</div>
+  </ion-item>
+<!--
+  <ion-button (click)="this.loadDatabaseEntries()"></ion-button>
+-->
 </ion-content>
