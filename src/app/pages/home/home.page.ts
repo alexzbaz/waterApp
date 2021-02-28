@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SettingsService} from '../../service/settings.service';
 import {WaterMeasureService} from '../../service/water-measure.service';
 import {IonSlides, ModalController} from '@ionic/angular';
@@ -10,7 +10,7 @@ import {SettingsPage} from '../settings/settings.page';
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss']
 })
-export class HomePage {
+export class HomePage implements OnInit {
     @ViewChild('slides') slides: IonSlides;
     slideOptions = {
         initialSlide: 0,
@@ -28,7 +28,7 @@ export class HomePage {
                 public modalCtrl: ModalController) {
     }
 
-    async ionViewWillEnter() {
+    async ngOnInit() {
         /*if (this.storage.dataLoaded === false) {*/
         await this.waterMeasureService.getDailyGoal();
         await this.waterMeasureService.getTodaysLitresDrank();
@@ -41,8 +41,6 @@ export class HomePage {
             this.waterMeasureService.getValueForProgbarInPercent();
         }
     }
-
-
 
     addWater(ml) {
         this.waterMeasureService.addToProgressbar(ml);
