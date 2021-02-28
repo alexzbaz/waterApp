@@ -12,6 +12,7 @@ import {ModalController} from '@ionic/angular';
 export class SettingsPage {
     litres;
     numberOfButtons;
+    simpleMode = false;
 
     constructor(public waterMeasureService: WaterMeasureService,
                 public router: Router,

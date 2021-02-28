@@ -27,7 +27,6 @@ export class StorageService {
     async createDbFormat() {
         await this.createWaterTable();
         await this.createGoalTable();
-
     }
 
     createWaterTable() {
@@ -54,6 +53,19 @@ export class StorageService {
     loadAmountOfDay() {
         console.log('loadAmountOfDay()');
         let date = [this.date.getYear(), this.date.getMonth(), this.date.getDay()];
+
+        return this.storage.executeSql('SELECT amount FROM water_drank WHERE year = ? AND month = ? AND day = ?', date)
+            .then(res => {
+                    console.log('Amount loaded', res);
+                    return res;
+                }
+            );
+    }
+
+    loadAmountOfWeek() {
+        console.log('loadAmountOfWeek()');
+        let date = [this.date.getYear(), this.date.getMonth(), this.date.getDay()];
+
         return this.storage.executeSql('SELECT amount FROM water_drank WHERE year = ? AND month = ? AND day = ?', date)
             .then(res => {
                     console.log('Amount loaded', res);

@@ -6,13 +6,27 @@
         </ion-title>
         <ion-buttons slot="end">
             simple
-            <ion-toggle slot="end" style="font-size: small"></ion-toggle>
+            <ion-toggle slot="end" [(ngModel)]="simpleMode" style="font-size: small"></ion-toggle>
         </ion-buttons>
 
     </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+    <div *ngIf="simpleMode === true">
+        <ion-item lines="none">
+            You already know how much you want to drink? Write the number down:
+        </ion-item>
+        <ion-input>
+
+        </ion-input>
+        <ion-item>
+            Otherwise, let me calculate it for you :)
+        </ion-item>
+    </div>
+
+    <div *ngIf="simpleMode === false">
         <ion-item lines="none">
             <ion-label position="stacked">
                 How much water do you want to drink daily?
@@ -22,14 +36,14 @@
             </ion-input>
         </ion-item>
 
-    <ion-item lines="none">
-        <ion-label position="stacked">
-            How many items would you like to choose from?
-        </ion-label>
-        <ion-input [(ngModel)]="numberOfButtons">
+        <ion-item lines="none">
+            <ion-label position="stacked">
+                How many items would you like to choose from?
+            </ion-label>
+            <ion-input [(ngModel)]="numberOfButtons">
 
-        </ion-input>
-    </ion-item>
+            </ion-input>
+        </ion-item>
 
         <ion-item lines="none">
             <ion-label position="stacked">
@@ -56,12 +70,12 @@
             <ion-range min="1" max="5" pin="true" snaps="true"></ion-range>
         </ion-item>
 
-    <ion-item lines="none">
-        <ion-label position="stacked">
-            Colouring
-        </ion-label>
-    </ion-item>
-
+        <ion-item lines="none">
+            <ion-label position="stacked">
+                Colouring
+            </ion-label>
+        </ion-item>
+    </div>
 </ion-content>
 
 <ion-footer>
