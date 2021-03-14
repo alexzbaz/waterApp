@@ -24,3 +24,11 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.calendar-modal-css {
+  height: 80%;
+  top: 20%;
+  position: absolute;
+  display: block;
+}

@@ -10,12 +10,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-item>
+    <!--<ion-item>
       <ion-label>Datentyp</ion-label>
         <ion-select value="list">
             <ion-select-option value="list">Liste</ion-select-option>
             <ion-select-option value="graph">Graph</ion-select-option>
         </ion-select>
+    </ion-item>-->
+    <ion-item (click)="openCalendarModal()">
+        <ion-label>Datum wählen</ion-label>
+        <!--<ion-select value="day" >
+            <ion-select-option value="day">Tag</ion-select-option>
+            <ion-select-option value="week">Woche</ion-select-option>
+            <ion-select-option value="month">Monat</ion-select-option>
+            <ion-select-option value="custom">Zeitraum</ion-select-option>
+        </ion-select>-->
     </ion-item>
 
     <ion-item *ngFor="let entry of this.databaseEntries">
