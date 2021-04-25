@@ -44,7 +44,8 @@ export class HomePage implements OnInit {
 
     addWater(ml) {
         this.waterMeasureService.addToProgressbar(ml);
-        this.storage.storeAmount(ml);
+        let timestamp = new Date().getTime();
+        this.storage.storeAmount(ml, timestamp);
     }
 
     // When revisiting the page, the slides have to be started "manually"

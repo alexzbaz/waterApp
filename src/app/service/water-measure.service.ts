@@ -14,7 +14,8 @@ export class WaterMeasureService {
     }
 
     async getTodaysLitresDrank() {
-        await this.storage.loadAmountOfDay()
+        let day = this.getSpecificDay();
+        await this.storage.loadAmountOfDay(day)
             .then(res => {
                 if (res.rows.length > 0) {
                     for (let i = 0; i < res.rows.length; i++) {
@@ -23,6 +24,10 @@ export class WaterMeasureService {
                 }
             });
         console.log('LITRES DRANK', this.drankToday);
+    }
+
+    getSpecificDay() {
+        // TODO: Return specific day as timestamp
     }
 
     addToProgressbar(addedWater) {

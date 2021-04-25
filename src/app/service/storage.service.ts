@@ -29,32 +29,33 @@ export class StorageService {
         await this.createGoalTable();
     }
 
+    // TODO: Change Table water_drank: add timestamp instead of year, month, day, hour, minute
     createWaterTable() {
-        this.storage.executeSql('CREATE TABLE IF NOT EXISTS water_drank (id INTEGER PRIMARY KEY AUTOINCREMENT, amount INTEGER, year INTEGER, month INTEGER, day INTEGER, hour INTEGER, minute INTEGER)', [])
+        this.storage.executeSql('CREATE TABLE IF NOT EXISTS water_drank (id INTEGER PRIMARY KEY AUTOINCREMENT, amount INTEGER, timestamp INTEGER)', [])
             .then(res => console.log('Database \'Water\' created'))
             .catch((e) => console.log("Error in Water Table", JSON.stringify(e)));
     }
 
     createGoalTable() {
-        this.storage.executeSql('CREATE TABLE IF NOT EXISTS goal (amount INTEGER, goal_set INTEGER)', [])
+        this.storage.executeSql('CREATE TABLE IF NOT EXISTS goal (amount INTEGER, timestamp INTEGER)', [])
             .then(res => console.log('Database \'Goal\' created'))
             .catch((e) => console.log("Error in Goal Table", JSON.stringify(e)));
     }
 
     // Amount comes in ml
-    storeAmount(amount) {
-        let store = [amount, this.date.getYear(), this.date.getMonth(), this.date.getDay(), this.date.getHour(), this.date.getMinute()];
-        return this.storage.executeSql('INSERT INTO water_drank (amount, year, month, day, hour, minute) VALUES (?, ?, ?, ?, ?, ?)', store)
+    storeAmount(amount, timestamp) {
+        let store = [amount, timestamp];
+        return this.storage.executeSql('INSERT INTO water_drank (amount, timestamp) VALUES (?, ?)', store)
             .then(res => {
                 console.log('Amount stored', res);
             });
     }
 
-    loadAmountOfDay() {
+    loadAmountOfDay(timestamp) {
         console.log('loadAmountOfDay()');
-        let date = [this.date.getYear(), this.date.getMonth(), this.date.getDay()];
+        let date = [timestamp];
 
-        return this.storage.executeSql('SELECT amount FROM water_drank WHERE year = ? AND month = ? AND day = ?', date)
+        return this.storage.executeSql('SELECT amount FROM water_drank WHERE timestamp = ?', date)
             .then(res => {
                     console.log('Amount loaded', res);
                     return res;
@@ -62,11 +63,21 @@ export class StorageService {
             );
     }
 
-    loadAmountOfWeek() {
-        console.log('loadAmountOfWeek()');
-        let date = [this.date.getYear(), this.date.getMonth(), this.date.getDay()];
+    loadAllEntries() {
+        console.log('loadAmountOfDay()');
+        return this.storage.executeSql('SELECT * FROM water_drank')
+            .then(res => {
+                    console.log('Amount loaded', res);
+                    return res;
+                }
+            );
+    }
 
-        return this.storage.executeSql('SELECT amount FROM water_drank WHERE year = ? AND month = ? AND day = ?', date)
+    loadAmountOfWeek(timestamp) {
+        console.log('loadAmountOfWeek()');
+        let date = [timestamp];
+
+        return this.storage.executeSql('SELECT amount FROM water_drank WHERE timestamp = ?', date)
             .then(res => {
                     console.log('Amount loaded', res);
                     return res;

@@ -23,7 +23,7 @@ export class HistoryPage {
 
     async loadDatabaseEntries() {
         this.databaseEntries = [];
-        await this.storage.loadAmountOfDay().then((res) => {
+        await this.storage.loadAllEntries().then((res) => {
             for (let i = 0; i < res.rows.length; i++) {
                 this.databaseEntries.push(res.rows.item(i));
                 console.log('DATABASE ENTRIES', this.databaseEntries);
