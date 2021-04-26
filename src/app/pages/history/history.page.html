@@ -17,17 +17,18 @@
             <ion-select-option value="graph">Graph</ion-select-option>
         </ion-select>
     </ion-item>-->
-    <ion-item (click)="openCalendarModal()">
+    <!--<ion-item (click)="openCalendarModal()">
         <ion-label>Datum wählen</ion-label>
-        <!--<ion-select value="day" >
+        <ion-select value="day" >
             <ion-select-option value="day">Tag</ion-select-option>
             <ion-select-option value="week">Woche</ion-select-option>
             <ion-select-option value="month">Monat</ion-select-option>
             <ion-select-option value="custom">Zeitraum</ion-select-option>
-        </ion-select>-->
-    </ion-item>
+        </ion-select>
+    </ion-item>-->
 
-    <ion-item *ngFor="let entry of this.databaseEntries">
-        <div>{{entry.amount}} ml</div>
+    <ion-item *ngFor="let entry of historyService.databaseEntries">
+        <div *ngIf="entry.type === 'TIMESTAMP'" style="color: blue">{{entry.amount}}</div>
+        <div *ngIf="entry.type !== 'TIMESTAMP'">{{entry.amount}}</div>
     </ion-item>
 </ion-content>

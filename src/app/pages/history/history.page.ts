@@ -3,6 +3,7 @@ import {SettingsService} from '../../service/settings.service';
 import {StorageService} from '../../service/storage.service';
 import {ModalController} from '@ionic/angular';
 import {CalendarPage} from './calendar/calendar.page';
+import {HistoryService} from '../../service/history.service';
 
 @Component({
     selector: 'app-history',
@@ -10,25 +11,15 @@ import {CalendarPage} from './calendar/calendar.page';
     styleUrls: ['history.page.scss']
 })
 export class HistoryPage {
-    databaseEntries = [];
 
     constructor(public settingsService: SettingsService,
                 private storage: StorageService,
-                private modalCtrl: ModalController) {
+                private modalCtrl: ModalController,
+                private historyService: HistoryService) {
     }
 
     ionViewWillEnter() {
-        this.loadDatabaseEntries();
-    }
-
-    async loadDatabaseEntries() {
-        this.databaseEntries = [];
-        await this.storage.loadAllEntries().then((res) => {
-            for (let i = 0; i < res.rows.length; i++) {
-                this.databaseEntries.push(res.rows.item(i));
-                console.log('DATABASE ENTRIES', this.databaseEntries);
-            }
-        });
+        this.historyService.loadDatabaseEntries();
     }
 
     async openCalendarModal() {
@@ -36,8 +27,6 @@ export class HistoryPage {
             component: CalendarPage,
             cssClass: 'calendar-modal-css'
         });
-
-
 
         return await modal.present();
     }

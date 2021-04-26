@@ -65,7 +65,7 @@ export class StorageService {
 
     loadAllEntries() {
         console.log('loadAmountOfDay()');
-        return this.storage.executeSql('SELECT * FROM water_drank')
+        return this.storage.executeSql('SELECT * FROM water_drank', [])
             .then(res => {
                     console.log('Amount loaded', res);
                     return res;
@@ -109,7 +109,7 @@ export class StorageService {
     }
 
     setDailyGoal(amount) {
-        let store = [amount, this.date.getDate()];
+        let store = [amount, new Date().getTime()/*this.date.getDate()*/];
         return this.storage.executeSql('INSERT INTO goal (amount, goal_set) VALUES (?, ?)', store)
             .then(res => {
                 console.log('Daily goal Set');
